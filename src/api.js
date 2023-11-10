@@ -20,7 +20,7 @@ export const getProducts = async () => {
       name: doc.data.name,
       price: doc.data.price,
       quantity: doc.data.quantity,
-      // Add imageUrl if you have one in your product data
+      imageUrl: doc.data.imageUrl,
     }));
   } catch (err) {
     console.error("Error fetching products from FaunaDB", err);

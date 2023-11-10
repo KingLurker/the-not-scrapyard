@@ -27,7 +27,7 @@ const App = () => {
           name={product.name}
           price={product.price}
           quantity={product.quantity}
-          // Add imageUrl if you have one in your product data
+          imageUrl={product.imageUrl}
         />
       ))}
     </>
