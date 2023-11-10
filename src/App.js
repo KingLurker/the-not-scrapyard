@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
 
-function App() {
+import React, { useState, useEffect } from "react";
+import ProductCard from "./ProductCard";
+import { getProducts } from "./api"; // This is where you would import the API call function
+
+const App = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    // Fetch the product data when the component mounts
+    getProducts()
+      .then((data) => {
+        // Assuming the response data is in the format we want
+        setProducts(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+      });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {products.map((product, index) => (
+        <ProductCard
+          key={index}
+          name={product.name}
+          price={product.price}
+          quantity={product.quantity}
+          // Add imageUrl if you have one in your product data
+        />
+      ))}
+    </>
   );
-}
+};
 
 export default App;
