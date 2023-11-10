@@ -1,9 +1,8 @@
 // api.js
 import faunadb from "faunadb";
-//require("dotenv").config(); // Ensure your .env file is being read correctly
 
 const client = new faunadb.Client({
-  secret: "fnAFSQ23L0AATQvFL9xgq66n0yDACcDFtt399tGO",
+  secret: process.env.REACT_APP_FAUNADB_SECRET,
 });
 const q = faunadb.query;
 
