@@ -1,7 +1,7 @@
 // App.js
 
 import React, { useState, useEffect } from "react";
-import ProductCard from "./ProductCard";
+import ProductCard from "./components/ProductCard";
 import { getProducts } from "./api"; // This is where you would import the API call function
 
 const App = () => {
