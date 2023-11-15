@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import ProductCard from "./components/ProductCard";
 import { getProducts } from "./api"; // This is where you would import the API call function
+import CartProvider from "./components/NavigationBar/CartContext";
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -21,6 +22,7 @@ const App = () => {
 
   return (
     <>
+      <CartProvider>
       {products.map((product, index) => (
         <ProductCard
           key={index}
@@ -30,6 +32,7 @@ const App = () => {
           imageUrl={product.imageUrl}
         />
       ))}
+      </CartProvider>
     </>
   );
 };
