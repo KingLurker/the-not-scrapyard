@@ -3,14 +3,16 @@
 import React from "react";
 import { CartContext } from './NavigationBar/CartContext';
 import { useContext } from 'react';
+import { Form, Button, Col, Row } from 'react-bootstrap';
 
 const ProductCard = ({ name, price, imageUrl, quantity }) => {
   // We'll use a placeholder image if none is provided
+  const product = (quantity);
   const defaultImage = "https://dummyimage.com/450x300/dee2e6/6c757d.jpg";
   imageUrl = imageUrl || defaultImage; // Fallback to default if no image URL is provided
 
   const cart = useContext(CartContext);
-  //const productQuantity = cart.getProductQuantity(product.id);
+  const productQuantity = cart.getProductQuantity(product.id);
 
   return (
     <div className="col mb-5">
@@ -28,10 +30,22 @@ const ProductCard = ({ name, price, imageUrl, quantity }) => {
         </div>
         <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
           <div className="text-center">
-            <a className="btn btn-outline-dark mt-auto" href="!#">
-              Add to cart?
-            </a>
-          </div>
+            { productQuantity > 0 ?
+            <>
+            <Form as={Row}>
+              <Form.Label row="true" sm="6">In Cart: { productQuantity }</Form.Label>
+                <Row sm="6">
+                  <Button sm="6" onClick={() => cart.addOneToCart(product.id)} className="mx-2">+</Button>
+                  <Button sm="6" onClick={() => cart.removeOneFromCart(product.id)} className="mx-2">-</Button>
+                </Row>
+              </Form>
+              <Button variant="danger" onClick={() => cart.deleteFromCart(product.id)} className="my-2">Remove from cart</Button>
+          </>  
+          :
+            <button class="btn btn-outline-dark" type="submit"
+            onClick={() => cart.addOneToCart(product.id)}>Add to cart</button>
+            }
+            </div>
         </div>
       </div>
     </div>

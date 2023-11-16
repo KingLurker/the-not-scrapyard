@@ -1,25 +1,23 @@
 // CartButton.js
-import { Modal } from 'react-bootstrap'
-import React, { useState } from "react";
-//import Modal from "./CartModal";
+import { Modal, Button } from 'react-bootstrap'
+import React, { useState, useContext } from "react";
+import { CartContext } from "./CartContext";
+import CartProducts from './CartProducts';
 
 const CartButton = () => {
-  //const handleLoginClick = () => {
-  //console.log("testing...123");
-  const [show, setShow] = useState(false);
 
+  const cart = useContext(CartContext);
+  const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const productCount = cart.items.reduce((sum, product) => sum + product.quantity, 0);
 
   return (
     <>
       <button class="btn btn-outline-dark" type="submit"
-        onClick={handleShow}
-      >
-        <i class="bi-cart-fill me-1"></i>
-        Cart
-        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+        onClick={handleShow}>Cart ({productCount} Items)
+        
       </button>
 
       <Modal show={show} onHide={handleClose}>
@@ -27,7 +25,22 @@ const CartButton = () => {
             <Modal.Title>Shopping Cart</Modal.Title>
         </Modal.Header>
         <Modal.Body> 
-          <h1>Product information will go here</h1>
+          {productCount > 0 ?
+          <>
+            <p>Items in your cart: </p>
+            {cart.items.map((currentProduct, idx) => (
+              <h1>{currentProduct.id}</h1>
+            ))}
+          
+            <h1>Total: {cart.getTotalCost().toFixed(2)}</h1>
+          
+              <Button variant="success">
+                Purchase items!
+              </Button>
+          </>  
+        :
+              <h1>There are no items in your cart</h1>
+        }
         </Modal.Body>
       </Modal>
     </>
