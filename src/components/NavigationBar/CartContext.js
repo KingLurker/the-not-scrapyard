@@ -57,7 +57,7 @@ export function CartProvider({children}) {
     function removeOneFromCart(id) {
         const quantity = getProductQuantity(id);
 
-        if(quantity == 1) {
+        if(quantity === 1) {
             deleteFromCart(id)
         } else {
             setCartProducts(
@@ -77,7 +77,7 @@ export function CartProvider({children}) {
         setCartProducts(
             cartProducts=>
             cartProducts.filter(currentProduct => {
-                return currentProduct.id != id;
+                return currentProduct.id !== id;
             })
         )
     }
